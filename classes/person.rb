@@ -1,8 +1,6 @@
 require_relative './nameable'
 
 class Person < Nameable
-  @all_persons = []
-
   attr_reader :id, :rentals
   attr_accessor :name, :age
 
@@ -13,7 +11,6 @@ class Person < Nameable
     @age = age
     @parent_permission = parent_permission
     @rentals = []
-    self.class.all_instances.push(self)
   end
 
   def can_use_services
@@ -27,10 +24,6 @@ class Person < Nameable
 
   def correct_name
     @name
-  end
-
-  def self.all_instances
-    @all_persons
   end
 
   private :of_age?
