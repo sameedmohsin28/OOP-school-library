@@ -1,5 +1,5 @@
 class Book
-  @@all_books = []
+  @all_books = []
 
   attr_accessor :title, :author
   attr_reader :rentals
@@ -8,10 +8,10 @@ class Book
     @title = title
     @author = author
     @rentals = []
-    @@all_books << self
+    self.class.all_instances << self
   end
 
   def self.all_instances
-    @@all_books
+    @all_books
   end
 end

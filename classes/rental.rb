@@ -2,7 +2,7 @@ require_relative './book'
 require_relative './person'
 
 class Rental
-  @@all_rentals = []
+  @all_rentals = []
 
   attr_accessor :date
   attr_reader :book, :person
@@ -16,10 +16,10 @@ class Rental
     @person = person
     person.rentals << self
 
-    @@all_rentals << self
+    self.class.all_instances << self
   end
 
   def self.all_instances
-    @@all_rentals
+    @all_rentals
   end
 end
