@@ -1,121 +1,45 @@
-require_relative './student'
-require_relative './teacher'
-require_relative './book'
-require_relative './app'
-require_relative './rental'
-# require_relative "./"
+# require_relative './main'
 
-def list_all_books
-  Book.all_instances.each do |book|
-    puts "Title: \"#{book.title}\", Author: #{book.author}"
-  end
-  puts ''
+def main_menu
+  display_options
+
+  perform_tasks
+
+  main_menu
 end
 
-def list_all_people
-  Person.all_instances.each do |person|
-    puts "[#{person.class.name}] Name: #{person.name}, ID:#{person.id}, Age:#{person.age}"
-  end
-  puts ''
+def display_options
+  puts 'Please choose an option by entering a number'
+  puts '1 - List all books'
+  puts '2 - List all people'
+  puts '3 - Create a person'
+  puts '4 - Create a book'
+  puts '5 - Create a rental'
+  puts '6 - List all rentals for a given person id'
+  puts '7 - exit'
 end
 
-def create_a_person
-  puts 'Do you want to create a student (1) or a teacher (2)'
-  person_choice = gets.chomp.to_i
+def perform_tasks
+  tasks = {
+    1 => method(:list_all_books),
+    2 => method(:list_all_people),
+    3 => method(:create_a_person),
+    4 => method(:create_a_book),
+    5 => method(:create_a_rental),
+    6 => method(:show_rentals_for_person),
+    7 => method(:exit_program)
+  }
 
-  case person_choice
-  when 1
-    create_student
+  number_chosen = gets.chomp.to_i
 
-  when 2
-    create_teacher
-
+  if tasks.key?(number_chosen)
+    tasks[number_chosen].call
   else
-    puts 'Please enter an appropriate number'
-    create_a_person
-  end
-
-  main_menu
-end
-
-def create_student
-  puts 'Please enter the following details for the student'
-  print 'Name: '
-  student_name = gets.chomp
-  print 'Age: '
-  student_age = gets.chomp
-  print 'Classroom: '
-  student_classroom = gets.chomp
-  print 'Parent permission (yes/no): '
-  parent_permission = gets.chomp
-  unless parent_permission.downcase == 'yes' || parent_permission.downcase == 'no'
-    puts 'Please write yes or no'
-    print 'Parent permission (yes/no): '
-    parent_permission = gets.chomp
-  end
-  parent_permission_boolean = true if parent_permission.downcase == 'yes'
-  parent_permission_boolean = false if parent_permission.downcase == 'no'
-  Student.new(student_classroom, student_age, student_name, parent_permission_boolean)
-end
-
-def create_teacher
-  puts 'Please enter the following details for the teacher'
-  print 'Name: '
-  teacher_name = gets.chomp
-  print 'Age: '
-  teacher_age = gets.chomp
-  print 'Specialization: '
-  teacher_specialization = gets.chomp
-  Teacher.new(teacher_specialization, teacher_age, teacher_name)
-end
-
-def create_a_book
-  print 'Title of the book: '
-  book_title = gets.chomp
-  print 'Author of the book: '
-  book_author = gets.chomp
-  Book.new(book_title, book_author)
-  puts 'Book created'
-  puts ''
-
-  main_menu
-end
-
-def create_a_rental
-  puts 'Select a book from the following list by number'
-  Book.all_instances.each_with_index do |book, index|
-    puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
-  end
-  rental_book_id = gets.chomp.to_i
-  rental_book = Book.all_instances[rental_book_id]
-  puts 'Select a person from the following list by number (not by id)'
-  Person.all_instances.each_with_index do |person, index|
-    puts "#{index}) [#{person.class.name}] Name: #{person.name}, ID:#{person.id}, Age:#{person.age}"
-  end
-  rental_person_id = gets.chomp.to_i
-  rental_person = Person.all_instances[rental_person_id]
-  print 'Date: '
-  rental_date = gets.chomp
-  Rental.new(rental_date, rental_book, rental_person)
-  puts 'Rental has been created'
-end
-
-def show_rentals_for_person
-  print 'Enter the id of person: '
-  person_id_rental = gets.chomp.to_i
-  Person.all_instances.select { |person| person.id == person_id_rental }
-  person_objects_array = []
-  Rental.all_instances.each do |rental|
-    person_objects_array << rental if rental.person.id == person_id_rental
-  end
-  puts 'Book rentals'
-  person_objects_array.each do |rental|
-    puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}"
+    puts 'Invalid entry. Please enter an appropriate number.'
   end
 end
 
-def main
-  puts main_menu
+def exit_program
+  puts 'Thank you for using school library'
+  exit
 end
-
-main
