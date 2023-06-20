@@ -16,23 +16,4 @@ def display_options
   puts '7 - exit'
 end
 
-def perform_tasks(input)
-  case input
-  when 1
-    list_all_books
-  when 2
-    list_all_people
-  when 3
-    create_a_person
-  when 4
-    create_a_book
-  when 5
-    create_a_rental
-  when 6
-    show_rentals_for_person
-  else
-    puts 'Invalid option. Retry'
-  end
-end
-
 main
