@@ -1,12 +1,12 @@
 require_relative './app'
-require_relative'./input.rb'
+require_relative './input'
 
-class MainClass
+class Main
   def main
     @app = App.new
     home
   end
-  
+
   def display_options
     puts 'Please choose an option by entering a number'
     puts '1 - List all books'
@@ -17,7 +17,7 @@ class MainClass
     puts '6 - List all rentals for a given person id'
     puts '7 - exit'
   end
-  
+
   def perform_tasks(number_choice)
     case number_choice
     when 1
@@ -36,7 +36,7 @@ class MainClass
       puts 'Invalid option. Retry'
     end
   end
-  
+
   def home
     puts 'Welcome to School Library Application'
     until display_options
@@ -45,11 +45,11 @@ class MainClass
         puts 'Thanks for using school library'
         exit
       end
-  
+
       perform_tasks(number_choice)
     end
   end
 end
 
-abc = MainClass.new
-abc.main
+main_instance = Main.new
+main_instance.main
