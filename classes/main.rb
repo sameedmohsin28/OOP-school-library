@@ -29,9 +29,9 @@ class Main
     when 4
       @app.input.input_for_books
     when 5
-      @app.input.input_for_rentals
+      @app.input.input_for_rentals(self)
     when 6
-      @app.input.input_for_show_person_rentals
+      @app.input.input_for_show_person_rentals(self)
     else
       puts 'Invalid option. Retry'
     end

@@ -1,4 +1,5 @@
 require_relative './app'
+# require_relative './main'
 
 class Input
   def initialize(app)
@@ -25,10 +26,10 @@ class Input
     student_name = gets.chomp
     print 'Age: '
     student_age = gets.chomp
-    print 'Parent permission (yes/no): '
+    print 'Parent permission (y/n): '
     parent_permission = gets.chomp
-    unless parent_permission.downcase == 'yes' || parent_permission.downcase == 'no'
-      puts 'Please write yes or no'
+    unless parent_permission.downcase == 'y' || parent_permission.downcase == 'n'
+      puts 'Please write y or n'
       print 'Parent permission (yes/no): '
       parent_permission = gets.chomp
     end
@@ -48,13 +49,23 @@ class Input
     @app.create_teacher(teacher_specialization, teacher_age, teacher_name)
   end
 
-  def input_for_rentals
+  def input_for_rentals(main_instance)
     puts 'Select a book from the following list by number'
+    if Book.has_not_instance?
+      puts "There are no books in the library"
+      puts ""
+      main_instance.main
+    end
     Book.all_instances.each_with_index do |book, index|
       puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
     end
     rental_book_id = gets.chomp.to_i
     rental_book = Book.all_instances[rental_book_id]
+    if @app.persons.empty?
+      puts "There are no persons in the record"
+      puts ""
+      main_instance.main
+    end
     puts 'Select a person from the following list by number (not by id)'
     @app.persons.each_with_index do |person, index|
       puts "#{index}) [#{person.class.name}] Name: #{person.name}, ID:#{person.id}, Age:#{person.age}"
@@ -66,7 +77,12 @@ class Input
     @app.create_a_rental(rental_date, rental_book, rental_person)
   end
 
-  def input_for_show_person_rentals
+  def input_for_show_person_rentals(main_instance)
+    if @app.persons.empty?
+      puts "There are no persons in the record therefore no rentals are created"
+      puts ""
+      main_instance.main
+    end
     print 'Enter the id of person: '
     person_id_rental = gets.chomp.to_i
     @app.persons.select { |person| person.id == person_id_rental }

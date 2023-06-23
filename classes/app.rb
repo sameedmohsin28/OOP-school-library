@@ -61,9 +61,13 @@ class App
   end
 
   def show_rentals_for_person(person_objects_array)
-    puts 'Book rentals'
-    person_objects_array.each do |rental|
-      puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}"
+    if person_objects_array.empty?
+      puts "No rentals for the given person"
+    else
+      puts 'Book rentals'
+      person_objects_array.each do |rental|
+        puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}"
+      end
     end
   end
 end
