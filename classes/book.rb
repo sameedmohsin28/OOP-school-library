@@ -15,7 +15,7 @@ class Book
     @all_books
   end
 
-  def self.has_not_instance?
+  def self.not_instance?
     @all_books.empty?
   end
 end

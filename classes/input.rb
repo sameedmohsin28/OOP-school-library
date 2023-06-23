@@ -51,9 +51,8 @@ class Input
 
   def input_for_rentals(main_instance)
     puts 'Select a book from the following list by number'
-    if Book.has_not_instance?
-      puts "There are no books in the library"
-      puts ""
+    if Book.not_instance?
+      puts "There are no books in the library \n"
       main_instance.main
     end
     Book.all_instances.each_with_index do |book, index|
@@ -61,11 +60,7 @@ class Input
     end
     rental_book_id = gets.chomp.to_i
     rental_book = Book.all_instances[rental_book_id]
-    if @app.persons.empty?
-      puts "There are no persons in the record"
-      puts ""
-      main_instance.main
-    end
+    check_for_persons(main_instance)
     puts 'Select a person from the following list by number (not by id)'
     @app.persons.each_with_index do |person, index|
       puts "#{index}) [#{person.class.name}] Name: #{person.name}, ID:#{person.id}, Age:#{person.age}"
@@ -78,11 +73,7 @@ class Input
   end
 
   def input_for_show_person_rentals(main_instance)
-    if @app.persons.empty?
-      puts "There are no persons in the record therefore no rentals are created"
-      puts ""
-      main_instance.main
-    end
+    check_for_persons(main_instance)
     print 'Enter the id of person: '
     person_id_rental = gets.chomp.to_i
     @app.persons.select { |person| person.id == person_id_rental }
@@ -91,5 +82,13 @@ class Input
       person_objects_array << rental if rental.person.id == person_id_rental
     end
     @app.show_rentals_for_person(person_objects_array)
+  end
+
+  def check_for_persons(main_instance)
+    return unless @app.persons.empty?
+
+    puts 'There are no persons in the record.'
+    puts ''
+    main_instance.main
   end
 end

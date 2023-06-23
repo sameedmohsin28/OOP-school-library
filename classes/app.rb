@@ -62,7 +62,7 @@ class App
 
   def show_rentals_for_person(person_objects_array)
     if person_objects_array.empty?
-      puts "No rentals for the given person"
+      puts 'No rentals for the given person'
     else
       puts 'Book rentals'
       person_objects_array.each do |rental|
