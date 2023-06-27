@@ -18,4 +18,11 @@ class Book
   def self.not_instance?
     @all_books.empty?
   end
+
+  def to_json(*args)
+    {
+      title: @title,
+      author: @author
+    }.to_json(*args)
+  end
 end

@@ -8,7 +8,9 @@ class App
 
   def initialize
     @persons = []
+    @rentals = []
     @input = Input.new(self)
+    load_data_from_files
   end
 
   def list_all_books
@@ -56,7 +58,8 @@ class App
   end
 
   def create_a_rental(rental_date, rental_book, rental_person)
-    Rental.new(rental_date, rental_book, rental_person)
+    rental_created = Rental.new(rental_date, rental_book, rental_person)
+    @rentals << rental_created
     puts 'Rental has been created'
   end
 
@@ -69,5 +72,63 @@ class App
         puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}"
       end
     end
+  end
+
+  def save_books_to_json_file
+    File.write('../dataFiles/books.json', JSON.generate(Book.all_instances))
+  end
+
+  def save_persons_to_json_file
+    File.write('../dataFiles/persons.json', JSON.generate(@persons))
+  end
+
+  def save_rentals_to_json_file
+    File.write('../dataFiles/rentals.json', JSON.generate(@rentals))
+  end
+
+  def load_books_from_json_file
+    return unless File.exist?('../dataFiles/books.json')
+
+    load_books = JSON.parse(File.read('../dataFiles/books.json'))
+    load_books.each do |book|
+      Book.new(book['title'], book['author'])
+    end
+  end
+
+  def load_persons_from_json_file
+    return unless File.exist?('../dataFiles/persons.json')
+
+    load_persons = JSON.parse(File.read('../dataFiles/persons.json'))
+    load_persons.each do |person|
+      if person['class_name'] == "Student"
+        student = Student.new(person['name'], person['age'], person['parent_permission'])
+        @persons << student
+      elsif person['class_name'] == "Teacher"
+        teacher = Teacher.new(person['specialization'], person['name'], person['age'])
+        @persons << teacher
+      end
+    end
+  end
+
+  def load_rentals_from_json_file
+    load_rentals = JSON.parse(File.read('../dataFiles/rentals.json'))
+    load_rentals.each do |rental|
+      req_book = Book.all_instances.find { |book| book.title == rental['book_title'] }
+      req_person = @persons.find { |person| person.name == rental['person_name'] }
+      rental = Rental.new(rental['date'], req_book, req_person)
+      @rentals << rental
+    end
+  end
+
+  def save_data_to_files
+    save_books_to_json_file
+    save_persons_to_json_file
+    save_rentals_to_json_file
+  end
+
+  def load_data_from_files
+    load_books_from_json_file
+    load_persons_from_json_file
+    load_rentals_from_json_file
   end
 end

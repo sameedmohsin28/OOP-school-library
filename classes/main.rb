@@ -42,6 +42,7 @@ class Main
     until display_options
       number_choice = gets.chomp.to_i
       if number_choice == 7
+        @app.save_data_to_files
         puts 'Thanks for using school library'
         exit
       end
