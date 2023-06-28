@@ -10,7 +10,7 @@ class Teacher < Person
     true
   end
 
-  def to_json (*args)
+  def to_json(*args)
     {
       name: @name,
       age: @age,
