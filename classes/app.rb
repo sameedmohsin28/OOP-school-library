@@ -8,7 +8,6 @@ class App
 
   def initialize
     @persons = []
-    @rentals = []
     @input = Input.new(self)
     load_data_from_files
   end
@@ -83,7 +82,7 @@ class App
   end
 
   def save_rentals_to_json_file
-    File.write('../dataFiles/rentals.json', JSON.generate(@rentals))
+    File.write('../dataFiles/rentals.json', JSON.generate(Rental.all_instances))
   end
 
   def load_books_from_json_file
@@ -101,10 +100,10 @@ class App
     load_persons = JSON.parse(File.read('../dataFiles/persons.json'))
     load_persons.each do |person|
       if person['class_name'] == "Student"
-        student = Student.new(person['name'], person['age'], person['parent_permission'])
+        student = Student.new(person['age'], person['name'], person['parent_permission'])
         @persons << student
       elsif person['class_name'] == "Teacher"
-        teacher = Teacher.new(person['specialization'], person['name'], person['age'])
+        teacher = Teacher.new(person['specialization'], person['age'], person['name'])
         @persons << teacher
       end
     end
@@ -115,8 +114,7 @@ class App
     load_rentals.each do |rental|
       req_book = Book.all_instances.find { |book| book.title == rental['book_title'] }
       req_person = @persons.find { |person| person.name == rental['person_name'] }
-      rental = Rental.new(rental['date'], req_book, req_person)
-      @rentals << rental
+      Rental.new(rental['date'], req_book, req_person)
     end
   end
 
