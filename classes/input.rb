@@ -1,17 +1,9 @@
-require_relative './app'
+require_relative 'app'
 # require_relative './main'
 
 class Input
   def initialize(app)
     @app = app
-  end
-
-  def input_for_books
-    print 'Title of the book: '
-    book_title = gets.chomp
-    print 'Author of the book: '
-    book_author = gets.chomp
-    @app.create_a_book(book_title, book_author)
   end
 
   def input_for_choosing_person
@@ -49,6 +41,14 @@ class Input
     @app.create_teacher(teacher_specialization, teacher_age, teacher_name)
   end
 
+  def input_for_books
+    print 'Title of the book: '
+    book_title = gets.chomp
+    print 'Author of the book: '
+    book_author = gets.chomp
+    @app.create_a_book(book_title, book_author)
+  end
+
   def input_for_rentals(main_instance)
     puts 'Select a book from the following list by number'
     if Book.not_instance?
@@ -74,6 +74,10 @@ class Input
 
   def input_for_show_person_rentals(main_instance)
     check_for_persons(main_instance)
+    puts 'Select a person from the following list by ID'
+    @app.persons.each do |person|
+      puts "[#{person.class.name}] Name: #{person.name}, ID:#{person.id}"
+    end
     print 'Enter the id of person: '
     person_id_rental = gets.chomp.to_i
     @app.persons.select { |person| person.id == person_id_rental }
