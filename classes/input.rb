@@ -49,21 +49,16 @@ class Input
     @app.create_a_book(book_title, book_author)
   end
 
+  ###
   def input_for_rentals(main_instance)
     puts 'Select a book from the following list by number'
-    if Book.not_instance?
-      puts "There are no books in the library \n"
-      main_instance.main
-    end
+    check_for_book
     Book.all_instances.each_with_index do |book, index|
       puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
     end
     rental_book_id = gets.chomp.to_i
     # check rental_book_id < index
-    if rental_book_id < 0 || rental_book_id >= Book.all_instances.length
-      puts "Invalid book selection."
-      main_instance.main
-    end
+    check_rental_book_id(rental_book_id)
     rental_book = Book.all_instances[rental_book_id]
     check_for_persons(main_instance)
     puts 'Select a person from the following list by number (not by id)'
@@ -72,14 +67,26 @@ class Input
     end
     rental_person_id = gets.chomp.to_i
     # check rental_person_id < index
-    if rental_person_id < 0 || rental_person_id >= @app.persons.length
-      puts "Invalid person selection."
-      main_instance.main
-    end
+    check_rental_person_id(rental_person_id)
     rental_person = @app.persons[rental_person_id]
     print 'Date: '
     rental_date = gets.chomp
     @app.create_a_rental(rental_date, rental_book, rental_person)
+  end
+
+  ###
+  def check_rental_person_id(rental_person_id)
+    return unless rental_person_id.negative? || rental_person_id >= @app.persons.length
+
+    puts 'Invalid person selection.'
+    main_instance.main
+  end
+
+  def check_rental_book_id(rental_book_id)
+    return unless rental_book_id.negative? || rental_book_id >= Book.all_instances.length
+
+    puts 'Invalid book selection.'
+    main_instance.main
   end
 
   def input_for_show_person_rentals(main_instance)
@@ -103,6 +110,13 @@ class Input
 
     puts 'There are no persons in the record.'
     puts ''
+    main_instance.main
+  end
+
+  def check_for_book
+    return unless Book.not_instance?
+
+    puts "There are no books in the library \n"
     main_instance.main
   end
 end
