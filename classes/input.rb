@@ -59,6 +59,11 @@ class Input
       puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
     end
     rental_book_id = gets.chomp.to_i
+    # check rental_book_id < index
+    if rental_book_id < 0 || rental_book_id >= Book.all_instances.length
+      puts "Invalid book selection."
+      main_instance.main
+    end
     rental_book = Book.all_instances[rental_book_id]
     check_for_persons(main_instance)
     puts 'Select a person from the following list by number (not by id)'
@@ -66,6 +71,11 @@ class Input
       puts "#{index}) [#{person.class.name}] Name: #{person.name}, ID:#{person.id}, Age:#{person.age}"
     end
     rental_person_id = gets.chomp.to_i
+    # check rental_person_id < index
+    if rental_person_id < 0 || rental_person_id >= @app.persons.length
+      puts "Invalid person selection."
+      main_instance.main
+    end
     rental_person = @app.persons[rental_person_id]
     print 'Date: '
     rental_date = gets.chomp
