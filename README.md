@@ -72,6 +72,18 @@ Clone this repository to your desired folder:
 - Twitter: [@sameedmohsin22](https://twitter.com/SameedMohsin22)
 - LinkedIn: [Sameed Mohsin](https://www.linkedin.com/in/sameed-mohsin-538792180/)
 
+## 👥 Author: <a name="authors">Hernán Zamora</a>
+
+- GitHub: [@hernandanielzamora](https://github.com/hernandanielzamora)
+- Twitter: [@HernanZamora14](https://twitter.com/HernanZamora14)
+- LinkedIn: [Linkedin](https://www.linkedin.com/in/hernan-zamora-03a697236/)
+
+## 👥 Author: <a name="authors">Nshanji Hilary Ndzi</a>
+
+- GitHub: [@dazehinn](https://github.com/dazehinn)
+- Twitter: [@hilaryndzi](https://twitter.com/hilaryndzi)
+- LinkedIn: [Linkedin](https://www.linkedin.com/in/nshanji-hilary-ndzi/)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 🔭 Future Features <a name="future-features"></a>
