@@ -73,30 +73,40 @@ class App
   end
 
   def save_books_to_json_file
-    File.write('../dataFiles/books.json', JSON.generate(Book.all_instances))
+    json_file_path = File.expand_path('../../dataFiles/books.json', __FILE__)
+    File.write(json_file_path, JSON.generate(Book.all_instances))
   end
 
   def save_persons_to_json_file
-    File.write('../dataFiles/persons.json', JSON.generate(@persons))
+    json_file_path = File.expand_path('../dataFiles/persons.json')
+    File.write(json_file_path, JSON.generate(@persons))
   end
 
   def save_rentals_to_json_file
-    File.write('../dataFiles/rentals.json', JSON.generate(Rental.all_instances))
+    json_file_path = File.expand_path('../../dataFiles/rentals.json', __FILE__)
+    File.write(json_file_path, JSON.generate(Rental.all_instances))
   end
 
+  # Loading Methods
+  # BOOKS
   def load_books_from_json_file
-    return unless File.exist?('../dataFiles/books.json')
-
-    load_books = JSON.parse(File.read('../dataFiles/books.json'))
+    json_file_path = File.expand_path('../../dataFiles/books.json', __FILE__)
+    puts json_file_path
+    return unless File.exist?(json_file_path)
+  
+    load_books = JSON.parse(File.read(json_file_path))
     load_books.each do |book|
       Book.new(book['title'], book['author'])
     end
   end
 
+  # Persons
   def load_persons_from_json_file
-    return unless File.exist?('../dataFiles/persons.json')
+    json_file_path = File.expand_path('../dataFiles/persons.json')
+    puts json_file_path
+    return unless File.exist?(json_file_path)
 
-    load_persons = JSON.parse(File.read('../dataFiles/persons.json'))
+    load_persons = JSON.parse(File.read(json_file_path))
     load_persons.each do |person|
       if person['class_name'] == 'Student'
         student = Student.new(person['age'], person['name'], person['parent_permission'])
@@ -108,10 +118,13 @@ class App
     end
   end
 
+  # Rentals
   def load_rentals_from_json_file
-    return unless File.exist?('../dataFiles/rentals.json')
-
-    load_rentals = JSON.parse(File.read('../dataFiles/rentals.json'))
+    json_file_path = File.expand_path('../../dataFiles/rentals.json', __FILE__)
+    puts json_file_path
+    return unless File.exist?(json_file_path)
+  
+    load_rentals = JSON.parse(File.read(json_file_path))
     load_rentals.each do |rental|
       req_book = Book.all_instances.find { |book| book.title == rental['book_title'] }
       req_person = @persons.find { |person| person.name == rental['person_name'] }
