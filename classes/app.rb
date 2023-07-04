@@ -57,7 +57,7 @@ class App
   end
 
   def create_a_rental(rental_date, rental_book, rental_person)
-    rental_created = Rental.new(rental_date, rental_book, rental_person)
+    Rental.new(rental_date, rental_book, rental_person)
     puts 'Rental has been created'
   end
 
