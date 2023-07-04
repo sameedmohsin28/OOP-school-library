@@ -1,7 +1,6 @@
 require 'json'
 require_relative 'app'
 
-
 class Input
   def initialize(app)
     @app = app
