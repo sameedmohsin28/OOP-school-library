@@ -91,7 +91,6 @@ class App
   # BOOKS
   def load_books_from_json_file
     json_file_path = File.expand_path('../../dataFiles/books.json', __FILE__)
-    puts json_file_path
     return unless File.exist?(json_file_path)
   
     load_books = JSON.parse(File.read(json_file_path))
@@ -103,7 +102,6 @@ class App
   # Persons
   def load_persons_from_json_file
     json_file_path = File.expand_path('../dataFiles/persons.json')
-    puts json_file_path
     return unless File.exist?(json_file_path)
 
     load_persons = JSON.parse(File.read(json_file_path))
@@ -121,7 +119,6 @@ class App
   # Rentals
   def load_rentals_from_json_file
     json_file_path = File.expand_path('../../dataFiles/rentals.json', __FILE__)
-    puts json_file_path
     return unless File.exist?(json_file_path)
   
     load_rentals = JSON.parse(File.read(json_file_path))
