@@ -73,7 +73,7 @@ class App
   end
 
   def save_books_to_json_file
-    json_file_path = File.expand_path('../../dataFiles/books.json', __FILE__)
+    json_file_path = File.expand_path('../dataFiles/books.json')
     File.write(json_file_path, JSON.generate(Book.all_instances))
   end
 
@@ -83,16 +83,15 @@ class App
   end
 
   def save_rentals_to_json_file
-    json_file_path = File.expand_path('../../dataFiles/rentals.json', __FILE__)
+    json_file_path = File.expand_path('../dataFiles/rentals.json')
     File.write(json_file_path, JSON.generate(Rental.all_instances))
   end
 
   # Loading Methods
   # BOOKS
   def load_books_from_json_file
-    json_file_path = File.expand_path('../../dataFiles/books.json', __FILE__)
+    json_file_path = File.expand_path('../dataFiles/books.json')
     return unless File.exist?(json_file_path)
-  
     load_books = JSON.parse(File.read(json_file_path))
     load_books.each do |book|
       Book.new(book['title'], book['author'])
@@ -118,9 +117,9 @@ class App
 
   # Rentals
   def load_rentals_from_json_file
-    json_file_path = File.expand_path('../../dataFiles/rentals.json', __FILE__)
+    json_file_path = File.expand_path('../dataFiles/rentals.json')
     return unless File.exist?(json_file_path)
-  
+
     load_rentals = JSON.parse(File.read(json_file_path))
     load_rentals.each do |rental|
       req_book = Book.all_instances.find { |book| book.title == rental['book_title'] }
