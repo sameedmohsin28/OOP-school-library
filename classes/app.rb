@@ -110,6 +110,7 @@ class App
   end
 
   def load_rentals_from_json_file
+    return unless File.exist?('../dataFiles/rentals.json')
     load_rentals = JSON.parse(File.read('../dataFiles/rentals.json'))
     load_rentals.each do |rental|
       req_book = Book.all_instances.find { |book| book.title == rental['book_title'] }
