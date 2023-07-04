@@ -110,11 +110,17 @@ class App
 
   def load_rentals_from_json_file
     return unless File.exist?('../dataFiles/rentals.json')
+
     load_rentals = JSON.parse(File.read('../dataFiles/rentals.json'))
     load_rentals.each do |rental|
       req_book = Book.all_instances.find { |book| book.title == rental['book_title'] }
       req_person = @persons.find { |person| person.name == rental['person_name'] }
-      Rental.new(rental['date'], req_book, req_person)
+
+      if req_book && req_person
+        Rental.new(rental['date'], req_book, req_person)
+      else
+        puts "Failed to create rental: #{rental}"
+      end
     end
   end
 
