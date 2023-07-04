@@ -92,6 +92,7 @@ class App
   def load_books_from_json_file
     json_file_path = File.expand_path('../dataFiles/books.json')
     return unless File.exist?(json_file_path)
+
     load_books = JSON.parse(File.read(json_file_path))
     load_books.each do |book|
       Book.new(book['title'], book['author'])
