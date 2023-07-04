@@ -1,4 +1,4 @@
-require_relative './nameable'
+require_relative 'nameable'
 
 class BaseDecroator < Nameable
   def initialize(name)

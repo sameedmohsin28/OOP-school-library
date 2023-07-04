@@ -14,4 +14,8 @@ class Book
   def self.all_instances
     @all_books
   end
+
+  def self.not_instance?
+    @all_books.empty?
+  end
 end
