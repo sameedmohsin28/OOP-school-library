@@ -1,7 +1,7 @@
 require 'json'
 # require 'to_bool'
 
-require_relative './app'
+require_relative 'app'
 # require_relative './main'
 
 class Input
