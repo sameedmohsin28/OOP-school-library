@@ -32,7 +32,7 @@ end
 
 describe TrimmerDecorator do
   it 'Trims the name if it exceeds 10 characters' do
-    object= double('object')
+    object = double('object')
     allow(object).to receive(:correct_name).and_return('Harry Potter')
 
     decorator = TrimmerDecorator.new(object)
@@ -40,7 +40,7 @@ describe TrimmerDecorator do
   end
 
   it 'Does not trim the name if it not exceeds 10 characters' do
-    object= double('object')
+    object = double('object')
     allow(object).to receive(:correct_name).and_return('Will Blue')
 
     decorator = TrimmerDecorator.new(object)
