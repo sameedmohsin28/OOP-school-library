@@ -107,7 +107,7 @@ class App
     load_persons = JSON.parse(File.read(json_file_path))
     load_persons.each do |person|
       if person['class_name'] == 'Student'
-        student = Student.new(person['age'], person['name'], person['parent_permission'])
+        student = Student.new(person['age'], person['name'], person['parent_permission'], person['classroom'])
         @persons << student
       elsif person['class_name'] == 'Teacher'
         teacher = Teacher.new(person['specialization'], person['age'], person['name'])

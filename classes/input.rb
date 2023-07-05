@@ -20,6 +20,8 @@ class Input
     student_age = gets.chomp
     print 'Parent permission (y/n): '
     parent_permission = gets.chomp
+    print 'Classroom'
+    classroom = gets.chomp
     unless parent_permission.downcase == 'y' || parent_permission.downcase == 'n'
       puts 'Please write y or n'
       print 'Parent permission (y/n): '
@@ -27,7 +29,7 @@ class Input
     end
     parent_permission_boolean = true if parent_permission.downcase == 'y'
     parent_permission_boolean = false if parent_permission.downcase == 'n'
-    @app.create_student(student_age, student_name, parent_permission_boolean)
+    @app.create_student(student_age, student_name, parent_permission_boolean, classroom)
   end
 
   def input_for_teacher
