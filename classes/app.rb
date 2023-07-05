@@ -9,6 +9,7 @@ class App
   def initialize
     @persons = []
     @input = Input.new(self)
+    load_data_from_files
   end
 
   def list_all_books
@@ -69,5 +70,79 @@ class App
         puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}"
       end
     end
+  end
+
+  def save_books_to_json_file
+    json_file_path = File.expand_path('../dataFiles/books.json')
+    File.write(json_file_path, JSON.generate(Book.all_instances))
+  end
+
+  def save_persons_to_json_file
+    json_file_path = File.expand_path('../dataFiles/persons.json')
+    File.write(json_file_path, JSON.generate(@persons))
+  end
+
+  def save_rentals_to_json_file
+    json_file_path = File.expand_path('../dataFiles/rentals.json')
+    File.write(json_file_path, JSON.generate(Rental.all_instances))
+  end
+
+  # Loading Methods
+  # BOOKS
+  def load_books_from_json_file
+    json_file_path = File.expand_path('../dataFiles/books.json')
+    return unless File.exist?(json_file_path)
+
+    load_books = JSON.parse(File.read(json_file_path))
+    load_books.each do |book|
+      Book.new(book['title'], book['author'])
+    end
+  end
+
+  # Persons
+  def load_persons_from_json_file
+    json_file_path = File.expand_path('../dataFiles/persons.json')
+    return unless File.exist?(json_file_path)
+
+    load_persons = JSON.parse(File.read(json_file_path))
+    load_persons.each do |person|
+      if person['class_name'] == 'Student'
+        student = Student.new(person['age'], person['name'], person['parent_permission'])
+        @persons << student
+      elsif person['class_name'] == 'Teacher'
+        teacher = Teacher.new(person['specialization'], person['age'], person['name'])
+        @persons << teacher
+      end
+    end
+  end
+
+  # Rentals
+  def load_rentals_from_json_file
+    json_file_path = File.expand_path('../dataFiles/rentals.json')
+    return unless File.exist?(json_file_path)
+
+    load_rentals = JSON.parse(File.read(json_file_path))
+    load_rentals.each do |rental|
+      req_book = Book.all_instances.find { |book| book.title == rental['book_title'] }
+      req_person = @persons.find { |person| person.name == rental['person_name'] }
+
+      if req_book && req_person
+        Rental.new(rental['date'], req_book, req_person)
+      else
+        puts "Failed to create rental: #{rental}"
+      end
+    end
+  end
+
+  def save_data_to_files
+    save_books_to_json_file
+    save_persons_to_json_file
+    save_rentals_to_json_file
+  end
+
+  def load_data_from_files
+    load_books_from_json_file
+    load_persons_from_json_file
+    load_rentals_from_json_file
   end
 end

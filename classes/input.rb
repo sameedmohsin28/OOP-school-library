@@ -1,5 +1,5 @@
+require 'json'
 require_relative 'app'
-# require_relative './main'
 
 class Input
   def initialize(app)
@@ -22,11 +22,11 @@ class Input
     parent_permission = gets.chomp
     unless parent_permission.downcase == 'y' || parent_permission.downcase == 'n'
       puts 'Please write y or n'
-      print 'Parent permission (yes/no): '
+      print 'Parent permission (y/n): '
       parent_permission = gets.chomp
     end
-    parent_permission_boolean = true if parent_permission.downcase == 'yes'
-    parent_permission_boolean = false if parent_permission.downcase == 'no'
+    parent_permission_boolean = true if parent_permission.downcase == 'y'
+    parent_permission_boolean = false if parent_permission.downcase == 'n'
     @app.create_student(student_age, student_name, parent_permission_boolean)
   end
 

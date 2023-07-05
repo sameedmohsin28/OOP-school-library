@@ -22,4 +22,12 @@ class Rental
   def self.all_instances
     @all_rentals
   end
+
+  def to_json(*args)
+    {
+      date: @date,
+      book_title: @book.title,
+      person_name: @person.name
+    }.to_json(*args)
+  end
 end
