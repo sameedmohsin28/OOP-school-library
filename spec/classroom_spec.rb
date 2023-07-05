@@ -4,7 +4,7 @@ require_relative '../classes/student'
 RSpec.describe Classroom do
   let(:label) { 'Math' }
   let(:classroom) { Classroom.new(label) }
-  let(:student) { Student.new(15, 'Harry Potter', true, classroom) }
+  let(:student) { Student.new(15, 'Harry Potter', true) }
 
   describe '#initialize' do
     it 'Initializes a new Classroom object using the provided label' do
