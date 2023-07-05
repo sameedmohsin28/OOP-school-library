@@ -88,7 +88,8 @@ Clone this repository to your desired folder:
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-None at the moment.
+- Upgrading interface from console to browser
+- Saving input data in a database
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
