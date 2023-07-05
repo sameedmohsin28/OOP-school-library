@@ -59,9 +59,28 @@ Clone this repository to your desired folder:
 
 `git clone https://github.com/sameedmohsin28/OOP-School-Library.git`
 
-### Usage
+### Install
+Install this project with:
+```
+ cd oop-school-library.git
 
-`code .`
+  bundle install
+```
+### Usage
+To run the project, execute the following command:
+```
+ruby main.rb
+```
+
+### Run Tests
+To run tests, run the following command:
+```
+bundle exec rspec
+```
+
+### Deployment
+You can deploy this project using:
+Heroku
 
 
 ## 👥 Author <a name="authors"></a>
