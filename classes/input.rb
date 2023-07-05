@@ -20,7 +20,7 @@ class Input
     student_age = gets.chomp
     print 'Parent permission (y/n): '
     parent_permission = gets.chomp
-    print 'Classroom'
+    print 'Classroom: '
     classroom = gets.chomp
     unless parent_permission.downcase == 'y' || parent_permission.downcase == 'n'
       puts 'Please write y or n'
