@@ -1,7 +1,7 @@
 require_relative 'person'
 
 class Student < Person
-  attr_reader :classroom
+  attr_accessor :classroom
 
   def initialize(age, name, parent_permission)
     super(age, name, parent_permission)
@@ -12,9 +12,9 @@ class Student < Person
     '\¯(ツ)/¯'
   end
 
-  def add_classroom(classroom_name)
+  def add_classroom(classroom)
     @classroom = classroom
-    classroom_name.students.push(self) unless classroom_name.students.include?(self)
+    classroom.students.push(self) unless classroom.students.include?(self)
   end
 
   def to_json(*args)
